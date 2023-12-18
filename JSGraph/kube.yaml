@@ -1,10 +1,10 @@
 apiVersion: v1
 data:
-  firebaseConfig: |-
-    #{firebaseConfig}#
+  firebaseconfig: |-
+    #{firebaseconfig}#
 kind: ConfigMap
 metadata:
-  name: firebaseConfig
+  name: firebaseconfig
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -39,13 +39,13 @@ spec:
           - name: GOOGLE_APPLICATION_CREDENTIALS
             value: "/app/db/credential.json"
           volumeMounts:
-          - name: "firebaseConfig"
+          - name: "firebaseconfig"
             mountPath: "/app/db/credential.json"
       volumes:
       - configmap:
-        name: "firebaseConfig" 
+        name: "firebaseconfig" 
         items:
-        - key: "firebaseConfig"
+        - key: "firebaseconfig"
           path: "/app/db/credential.json"
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst

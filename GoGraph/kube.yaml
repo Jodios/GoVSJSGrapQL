@@ -1,10 +1,10 @@
 apiVersion: v1
 data:
-  firebaseConfig: |-
-    #{firebaseConfig}#
+  firebaseconfig: |-
+    #{firebaseconfig}#
 kind: ConfigMap
 metadata:
-  name: firebaseConfig
+  name: firebaseconfig
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -39,8 +39,8 @@ spec:
           - name: FIREBASE_ADMIN
             valueFrom:
               configMapKeyRef:
-                name: "firebaseConfig"
-                key: "firebaseConfig"
+                name: "firebaseconfig"
+                key: "firebaseconfig"
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
 ---
