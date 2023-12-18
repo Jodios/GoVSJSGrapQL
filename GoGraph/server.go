@@ -9,6 +9,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	_ "github.com/jodios/gograph/db"
 	"github.com/jodios/gograph/graph"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 const defaultPort = "4000"
@@ -21,6 +22,7 @@ func main() {
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
+	http.Handle("/metrics", promhttp.Handler())
 	http.Handle("/", playground.Handler("GraphQL playground", "/graphql"))
 	http.Handle("/graphql", srv)
 
