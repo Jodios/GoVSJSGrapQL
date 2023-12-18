@@ -46,7 +46,7 @@ jobs:
           files: ./JSGraph/kube.yaml
         env:
           deployment.image.name: ${{ secrets.DOCKERHUB_USERNAME }}/jsgraph:${{ github.run_id }}
-          firebaseConfig: ${{ secrets.FIREBASE_ADMIN }}
+          firebaseconfig: ${{ secrets.FIREBASE_ADMIN }}
 
       - name: Deploy
         uses: danielr1996/kubectl-action@1.0.0
