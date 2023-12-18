@@ -26,6 +26,8 @@ jobs:
           go-version: '1.21'
 
       - name: Build
+        with:
+          context: ./GoGraph
         run: make build
 
       - name: Docker Setup QEMU
