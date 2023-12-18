@@ -51,7 +51,7 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.0
         with:
-          files: ./kube.yaml
+          files: ./GoGraph/kube.yaml
         env:
           deployment.image.name: ${{ secrets.DOCKERHUB_USERNAME }}/gograph:${{ github.run_id }}
           firebaseConfig: ${{ secrets.FIREBASE_ADMIN }}
@@ -60,4 +60,4 @@ jobs:
         uses: danielr1996/kubectl-action@1.0.0
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
-          args: apply -f ./kube.yaml
+          args: apply -f ./GoGraph/kube.yaml
