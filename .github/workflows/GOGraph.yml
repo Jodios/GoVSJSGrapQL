@@ -25,9 +25,8 @@ jobs:
         with:
           go-version: '1.21'
 
+      - run: cd GoGraph
       - name: Build
-        with:
-          context: ./GoGraph
         run: make build
 
       - name: Docker Setup QEMU
@@ -45,7 +44,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
-          context: ./GoGraph
+          # context: ./GoGraph
           push: true 
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/gograph:${{ github.run_id }},${{ secrets.DOCKERHUB_USERNAME }}/gograph:latest
 
@@ -53,7 +52,7 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.0
         with:
-          files: ./gograph/kube.yaml
+          files: ./kube.yaml
         env:
           deployment.image.name: ${{ secrets.DOCKERHUB_USERNAME }}/gograph:${{ github.run_id }}
           firebaseConfig: ${{ secrets.FIREBASE_ADMIN }}
@@ -62,4 +61,4 @@ jobs:
         uses: danielr1996/kubectl-action@1.0.0
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
-          args: apply -f ./GoGraph/kube.yaml
+          args: apply -f ./kube.yaml
