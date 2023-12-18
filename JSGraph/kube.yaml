@@ -21,6 +21,8 @@ spec:
       labels:
         app: jsgraph 
     spec:
+      nodeSelector:
+        name: ambrose4
       containers:
         - name: jsgraph
           image: #{deployment.image.name}#
@@ -29,24 +31,23 @@ spec:
               containerPort: 4000
               protocol: TCP
           imagePullPolicy: Always
-          nodeSelector:
-            name: ambrose4
           resources:
             limits:
-              cpu: "500m"
-              memory: "400M"
+              cpu: "300m"
+              memory: "200M"
           env:
           - name: GOOGLE_APPLICATION_CREDENTIALS
-            value: "/app/db/credential.json"
+            value: "/app/db/creds/credential.json"
           volumeMounts:
           - name: "firebaseconfig"
-            mountPath: "/app/db/credential.json"
+            mountPath: "/app/db/creds"
       volumes:
-      - configmap:
-        name: "firebaseconfig" 
-        items:
-        - key: "firebaseconfig"
-          path: "/app/db/credential.json"
+      - name: "firebaseconfig" 
+        configMap:
+          name: "firebaseconfig"
+          items:
+          - key: "firebaseconfig"
+            path: "./credential.json"
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
 ---

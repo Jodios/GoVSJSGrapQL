@@ -21,6 +21,8 @@ spec:
       labels:
         app: gograph 
     spec:
+      nodeSelector:
+        name: ambrose2
       containers:
         - name: gograph
           image: #{deployment.image.name}#
@@ -29,12 +31,10 @@ spec:
               containerPort: 4000
               protocol: TCP
           imagePullPolicy: Always
-          nodeSelector:
-            name: ambrose2
           resources:
             limits:
-              cpu: "500m"
-              memory: "400M"
+              cpu: "300m"
+              memory: "200M"
           env:
           - name: FIREBASE_ADMIN
             valueFrom:
